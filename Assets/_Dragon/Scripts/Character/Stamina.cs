@@ -145,6 +145,11 @@ public class Stamina : MMMonoBehaviour
 		    SetStamina(CurrentStamina -= Time.deltaTime * RunCost);
 		    _shouldWait = true;
 		    _shouldWaitCurretTime = 0f;
+		    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted)
+		    {
+			    _movement.ChangeState(CharacterStates.MovementStates.Idle);
+			    _character.GetComponent<CharacterHorizontalMovement>().ResetHorizontalSpeed();
+		    }
 	    }
     }
     
