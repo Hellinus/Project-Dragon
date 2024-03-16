@@ -361,7 +361,7 @@ MonoBehaviour:
   BarDirection: 0
   FillMode: 0
   TimeScale: 0
-  BarFillMode: 0
+  BarFillMode: 1
   LerpForegroundBar: 1
   LerpForegroundBarSpeedDecreasing: 15
   LerpForegroundBarSpeedIncreasing: 15
@@ -2857,7 +2857,6 @@ GameObject:
   - component: {fileID: 937379551160586189}
   - component: {fileID: 937379551150341837}
   - component: {fileID: 937379551151186593}
-  - component: {fileID: 2957996890239472495}
   - component: {fileID: 1674849260}
   - component: {fileID: 89831443600859859}
   m_Layer: 0
@@ -2942,7 +2941,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937379551162093033}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d64723688ce860840bebf5facbf67709, type: 3}
   m_Name: 
@@ -2952,43 +2951,17 @@ MonoBehaviour:
   - {fileID: 907264031757254893}
   JetPackBars:
   - {fileID: 907264030963565073}
-  AmmoDisplays: []
-  PauseScreen: {fileID: 937379551161923383}
-  TimeSplash: {fileID: 937379551162104829}
-  Buttons: {fileID: 937379551181468579}
-  Arrows: {fileID: 1017076763384667161}
-  Joystick: {fileID: 937379551182158389}
-  PointsText: {fileID: 0}
-  LevelText: {fileID: 0}
-  PointsPattern: 000000
---- !u!114 &2957996890239472495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937379551162093033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48140e3ab60e5eb41ae2be3a0ccfafe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HUD: {fileID: 937379551162092943}
-  HealthBars:
-  - {fileID: 907264031757254893}
-  JetPackBars:
-  - {fileID: 907264030963565073}
-  AmmoDisplays: []
-  PauseScreen: {fileID: 937379551161923383}
-  TimeSplash: {fileID: 937379551162104829}
-  Buttons: {fileID: 937379551181468579}
-  Arrows: {fileID: 1017076763384667161}
-  Joystick: {fileID: 937379551182158389}
-  PointsText: {fileID: 0}
-  LevelText: {fileID: 0}
-  PointsPattern: 000000
   StaminaBars:
   - {fileID: 4590496781426304121}
+  AmmoDisplays: []
+  PauseScreen: {fileID: 937379551161923383}
+  TimeSplash: {fileID: 937379551162104829}
+  Buttons: {fileID: 937379551181468579}
+  Arrows: {fileID: 1017076763384667161}
+  Joystick: {fileID: 937379551182158389}
+  PointsText: {fileID: 0}
+  LevelText: {fileID: 0}
+  PointsPattern: 000000
 --- !u!114 &1674849260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5809,7 +5782,7 @@ MonoBehaviour:
   BarDirection: 0
   FillMode: 0
   TimeScale: 0
-  BarFillMode: 0
+  BarFillMode: 1
   LerpForegroundBar: 1
   LerpForegroundBarSpeedDecreasing: 15
   LerpForegroundBarSpeedIncreasing: 15

@@ -11,6 +11,7 @@ public class CharacterStateUIDebugger : MonoBehaviour
  
     protected Character _character;
     protected Health _health;
+    protected Stamina _stamina;
     protected MMStateMachine<CharacterStates.MovementStates> _movement;
     protected MMStateMachine<CharacterStates.CharacterConditions> _condition;
     
@@ -30,6 +31,7 @@ public class CharacterStateUIDebugger : MonoBehaviour
         {
             _character = FindObjectOfType<Character>();
             _health = _character.CharacterHealth;
+            _stamina = _character.gameObject.GetComponent<Stamina>();
             _movement = _character.MovementState;
             _condition = _character.ConditionState;
         }
@@ -37,6 +39,6 @@ public class CharacterStateUIDebugger : MonoBehaviour
         _UI.text = "Movement State: " + _movement.CurrentState.ToString() + "\n" + 
                    "Condition State: " + _condition.CurrentState.ToString() + "\n" +
                    "Health: " + _health.CurrentHealth + " / " + _health.MaximumHealth + "\n" +
-                   "Stamina: ";
+                   "Stamina: " + _stamina.CurrentStamina + " / " + _stamina.MaximumStamina;
     }
 }

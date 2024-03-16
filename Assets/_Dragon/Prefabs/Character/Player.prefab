@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 5806683441907183481}
   - component: {fileID: 1550163676445053273}
   - component: {fileID: 1810945972399207655}
+  - component: {fileID: 555535829346107813}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -356,7 +357,7 @@ MonoBehaviour:
   FlipCharacterIfNeeded: 1
   AutoCorrectTrajectory: 1
   DashDirectionMinThreshold: 0.1
-  DashCooldown: 0.3
+  DashCooldown: 0.5
   LimitedDashes: 0
   SuccessiveDashAmount: 1
   SuccessiveDashesLeft: 1
@@ -900,6 +901,29 @@ MonoBehaviour:
   ClampedDamage: 1
   FallDamageTypes: []
   DamageVelocityThreshold: 5
+--- !u!114 &555535829346107813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b3671e1c3d65e47aff1256182de691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentStamina: 0
+  TemporarilyNeedNoStamina: 0
+  InitialStamina: 30
+  MaximumStamina: 30
+  NeedNoStamina: 0
+  JumpCost: 5
+  DashCost: 5
+  RunCost: 10
+  RecoverSpeed: 5
+  RecoverWaitTime: 2
+  MinExhaustLimit: 10
 --- !u!1 &159142
 GameObject:
   m_ObjectHideFlags: 0
