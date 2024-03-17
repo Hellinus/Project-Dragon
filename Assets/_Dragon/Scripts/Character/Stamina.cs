@@ -50,15 +50,32 @@ public class Stamina : MMMonoBehaviour
 
     [MMInspectorGroup("Control", true, 3)]
     
-    public float JumpCost = 5f;
+    [Header("Jump")]
+    public float JumpCost = 4f;
 
-    public float DashCost = 6f;
+    public bool ShouldRecoverWaitAfterJump = true;
     
+    [Header("Dash")]
+    public float DashCost = 0f;
+    
+    public bool ShouldRecoverWaitAfterDash = false;
+    
+    [Header("Roll")]
     public float RollCost = 6f;
+    
+    public bool ShouldRecoverWaitAfterRoll = true;
+    
+    [Header("Run")]
 
     public float RunConstantlyCost = 3f;
     
+    public bool ShouldRecoverWaitAfterRun = true;
+    
+    [Header("Climb")]
+    
     public float ClimbConstanlyCost = 3f;
+    
+    public bool ShouldRecoverWaitAfterClimb = true;
 
     [MMInspectorGroup("Recover", true, 4)]
     
@@ -116,14 +133,19 @@ public class Stamina : MMMonoBehaviour
 
     protected virtual void HandleCost()
     {
+	    if (NeedNoStamina || TemporarilyNeedNoStamina) return;
+	    
 	    if (_movement.CurrentState == CharacterStates.MovementStates.Dashing)
 	    {
 		    if (!_isDashed)
 		    {
 			    UpdateStamina(CurrentStamina -= DashCost);
 			    _isDashed = true;
-			    _shouldWait = true;
-			    _shouldWaitCurretTime = 0f;
+			    if (ShouldRecoverWaitAfterDash)
+			    {
+				    _shouldWait = true;
+				    _shouldWaitCurretTime = 0f;
+			    }
 		    }
 	    }
 	    else
@@ -137,8 +159,11 @@ public class Stamina : MMMonoBehaviour
 		    {
 			    UpdateStamina(CurrentStamina -= JumpCost);
 			    _isJumped = true;
-			    _shouldWait = true;
-			    _shouldWaitCurretTime = 0f;
+			    if (ShouldRecoverWaitAfterJump)
+			    {
+				    _shouldWait = true;
+				    _shouldWaitCurretTime = 0f;
+			    }
 		    }
 	    }
 	    else
@@ -152,8 +177,11 @@ public class Stamina : MMMonoBehaviour
 		    {
 			    UpdateStamina(CurrentStamina -= RollCost);
 			    _isRolled = true;
-			    _shouldWait = true;
-			    _shouldWaitCurretTime = 0f;
+			    if (ShouldRecoverWaitAfterRoll)
+			    {
+				    _shouldWait = true;
+				    _shouldWaitCurretTime = 0f;
+			    }
 		    }
 	    }
 	    else
@@ -164,8 +192,11 @@ public class Stamina : MMMonoBehaviour
 	    if (_movement.CurrentState == CharacterStates.MovementStates.Running)
 	    {
 		    SetStamina(CurrentStamina -= Time.deltaTime * RunConstantlyCost);
-		    _shouldWait = true;
-		    _shouldWaitCurretTime = 0f;
+		    if (ShouldRecoverWaitAfterRun)
+		    {
+			    _shouldWait = true;
+			    _shouldWaitCurretTime = 0f;
+		    }
 		    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted)
 		    {
 			    _movement.ChangeState(CharacterStates.MovementStates.Idle);
@@ -176,8 +207,11 @@ public class Stamina : MMMonoBehaviour
 	    if (_movement.CurrentState == CharacterStates.MovementStates.LadderClimbing)
 	    {
 		    SetStamina(CurrentStamina -= Time.deltaTime * ClimbConstanlyCost);
-		    _shouldWait = true;
-		    _shouldWaitCurretTime = 0f;
+		    if (ShouldRecoverWaitAfterClimb)
+		    {
+			    _shouldWait = true;
+			    _shouldWaitCurretTime = 0f;
+		    }
 		    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted)
 		    {
 			    _character.GetComponent<CharacterLadder>().GetOffTheLadder();
@@ -288,5 +322,15 @@ public class Stamina : MMMonoBehaviour
 			    }
 		    }
 	    }
+    }
+
+    public void StaminaCostEnabled()
+    {
+	    TemporarilyNeedNoStamina = false;
+    }
+    
+    public void StaminaCostDisabled()
+    {
+	    TemporarilyNeedNoStamina = true;
     }
 }
