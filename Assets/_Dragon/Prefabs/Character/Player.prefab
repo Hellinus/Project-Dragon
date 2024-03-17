@@ -411,8 +411,8 @@ MonoBehaviour:
   JumpIsProportionalToThePressTime: 1
   JumpMinimumAirTime: 0.05
   JumpReleaseForceFactor: 2
-  CoyoteTime: 0
-  InputBufferDuration: 0.2
+  CoyoteTime: 0.2
+  InputBufferDuration: 0
   OneWayPlatformsJumpCollisionOffDuration: 0.2
   MovingPlatformsJumpCollisionOffDuration: 0.05
   AirJumpFeedbacks: {fileID: 0}
@@ -883,7 +883,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2cb358c8c351ce74b87688f8e0931a52, type: 3}
   m_Name: 
@@ -920,7 +920,8 @@ MonoBehaviour:
   NeedNoStamina: 0
   JumpCost: 5
   DashCost: 5
-  RunCost: 10
+  RunConstantlyCost: 3
+  ClimbConstanlyCost: 3
   RecoverSpeed: 5
   RecoverWaitTime: 2
   MinExhaustLimit: 10

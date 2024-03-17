@@ -4,9 +4,11 @@ using MoreMountains.CorgiEngine;
 using TMPro;
 using UnityEngine;
 
-public class WatermarkUIDebugger : MonoBehaviour
+public class SystemInfoUIDebugger : MonoBehaviour
 {
     protected TextMeshProUGUI _UI;
+    protected string _deviceUniqueIdentifier;
+    protected string _deviceName;
         
     void Start()
     {
@@ -16,10 +18,13 @@ public class WatermarkUIDebugger : MonoBehaviour
             return;
         }
         _UI = GetComponent<TextMeshProUGUI>();
+
+        _deviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;
+        _deviceName = SystemInfo.deviceName;
     }
         
     void Update()
     {
-        _UI.text = System.DateTime.Now.ToString() + "   |   " + SystemInfo.deviceUniqueIdentifier;
+        _UI.text = System.DateTime.Now.ToString() + "   |   " + _deviceUniqueIdentifier + "   |   " + _deviceName;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MoreMountains.CorgiEngine;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public struct StaminaChangeEvent
 {
@@ -53,7 +54,9 @@ public class Stamina : MMMonoBehaviour
 
     public float DashCost = 6f;
 
-    public float RunCost = 3f;
+    public float RunConstantlyCost = 3f;
+    
+    public float ClimbConstanlyCost = 3f;
 
     [MMInspectorGroup("Recover", true, 4)]
     
@@ -141,8 +144,8 @@ public class Stamina : MMMonoBehaviour
 	    }
 
 	    if (_movement.CurrentState == CharacterStates.MovementStates.Running)
-	    { 
-		    SetStamina(CurrentStamina -= Time.deltaTime * RunCost);
+	    {
+		    SetStamina(CurrentStamina -= Time.deltaTime * RunConstantlyCost);
 		    _shouldWait = true;
 		    _shouldWaitCurretTime = 0f;
 		    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted)
@@ -151,22 +154,44 @@ public class Stamina : MMMonoBehaviour
 			    _character.GetComponent<CharacterHorizontalMovement>().ResetHorizontalSpeed();
 		    }
 	    }
+
+	    if (_movement.CurrentState == CharacterStates.MovementStates.LadderClimbing)
+	    {
+		    SetStamina(CurrentStamina -= Time.deltaTime * ClimbConstanlyCost);
+		    _shouldWait = true;
+		    _shouldWaitCurretTime = 0f;
+		    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted)
+		    {
+			    _character.GetComponent<CharacterLadder>().GetOffTheLadder();
+		    }
+	    }
     }
     
     protected virtual void HandleExhaust()
     {
-	    if (CurrentStamina <= 0)
+	    if (CurrentStamina <= 0 
+	        && (_condition.CurrentState is CharacterStates.CharacterConditions.Normal or CharacterStates.CharacterConditions.ControlledMovement ))
 	    {
 		    _condition.ChangeState(CharacterStates.CharacterConditions.Exhausted);
+		    // GUIManager.Instance.ExhaustedFeedbacks.PlayFeedbacks();
 	    }
 	    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted && CurrentStamina >= MinExhaustLimit)
 	    {
 		    _condition.ChangeState(CharacterStates.CharacterConditions.Normal);
+		    GUIManager.Instance.RecoverFromExhaustedFeedbacks.PlayFeedbacks();
 	    }
     }
     
     protected virtual void HandleRecover()
     {
+	    if (_condition.CurrentState is CharacterStates.CharacterConditions.Dead
+	        or CharacterStates.CharacterConditions.Paused
+	        or CharacterStates.CharacterConditions.Stunned
+	       )
+	    {
+		    return;
+	    }
+	    
 	    if (_movement.CurrentState != CharacterStates.MovementStates.Running)
 	    {
 		    if (CurrentStamina <= MaximumStamina && !_shouldWait)
@@ -184,13 +209,16 @@ public class Stamina : MMMonoBehaviour
 			    }
 		    }
 	    }
-	    
-	    CurrentStamina = Mathf.Clamp(CurrentStamina, 0f, MaximumStamina);
     }
     
     public virtual void UpdateStamina(float newStamina)
     {
 	    CurrentStamina = Mathf.Min(newStamina, MaximumStamina);
+	    CurrentStamina = Mathf.Clamp(CurrentStamina, 0f, MaximumStamina);
+	    if (CurrentStamina <= 0f)
+	    {
+		    GUIManager.Instance.ExhaustedFeedbacks.PlayFeedbacks();
+	    }
 	    UpdateStaminaBar();
 	    StaminaChangeEvent.Trigger(this, newStamina);
     }
@@ -198,6 +226,11 @@ public class Stamina : MMMonoBehaviour
     public virtual void SetStamina(float newStamina)
     {
 	    CurrentStamina = Mathf.Min(newStamina, MaximumStamina);
+	    CurrentStamina = Mathf.Clamp(CurrentStamina, 0f, MaximumStamina);
+	    if (CurrentStamina <= 0f)
+	    {
+		    GUIManager.Instance.ExhaustedFeedbacks.PlayFeedbacks();
+	    }
 	    SetStaminaBar();
 	    StaminaChangeEvent.Trigger(this, newStamina);
     }
