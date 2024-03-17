@@ -53,6 +53,8 @@ public class Stamina : MMMonoBehaviour
     public float JumpCost = 5f;
 
     public float DashCost = 6f;
+    
+    public float RollCost = 6f;
 
     public float RunConstantlyCost = 3f;
     
@@ -77,6 +79,7 @@ public class Stamina : MMMonoBehaviour
 
     protected bool _isDashed = false;
     protected bool _isJumped = false;
+    protected bool _isRolled = false;
     protected bool _shouldWait = false;
     protected float _shouldWaitCurretTime = 0f;
     
@@ -141,6 +144,21 @@ public class Stamina : MMMonoBehaviour
 	    else
 	    {
 		    _isJumped = false;
+	    }
+	    
+	    if (_movement.CurrentState == CharacterStates.MovementStates.Rolling)
+	    {
+		    if (!_isRolled)
+		    {
+			    UpdateStamina(CurrentStamina -= RollCost);
+			    _isRolled = true;
+			    _shouldWait = true;
+			    _shouldWaitCurretTime = 0f;
+		    }
+	    }
+	    else
+	    {
+		    _isRolled = false;
 	    }
 
 	    if (_movement.CurrentState == CharacterStates.MovementStates.Running)

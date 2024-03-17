@@ -476,7 +476,7 @@ MonoBehaviour:
   Activable: 1
   AutoActivation: 0
   AutoActivationAndButtonInteraction: 0
-  CanOnlyActivateIfGrounded: 0
+  CanOnlyActivateIfGrounded: 1
   ShouldUpdateState: 1
   OnlyOneActivationAtOnce: 1
   AlsoPerformChecksOnStay: 0
@@ -614,7 +614,7 @@ MonoBehaviour:
   Activable: 1
   AutoActivation: 0
   AutoActivationAndButtonInteraction: 0
-  CanOnlyActivateIfGrounded: 0
+  CanOnlyActivateIfGrounded: 1
   ShouldUpdateState: 1
   OnlyOneActivationAtOnce: 1
   AlsoPerformChecksOnStay: 0

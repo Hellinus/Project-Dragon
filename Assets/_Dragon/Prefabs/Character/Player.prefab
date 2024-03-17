@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 5806683441907183481}
   - component: {fileID: 1550163676445053273}
   - component: {fileID: 1810945972399207655}
+  - component: {fileID: 8372226873538739712}
   - component: {fileID: 555535829346107813}
   m_Layer: 9
   m_Name: Player
@@ -357,11 +358,11 @@ MonoBehaviour:
   FlipCharacterIfNeeded: 1
   AutoCorrectTrajectory: 1
   DashDirectionMinThreshold: 0.1
-  DashCooldown: 0.5
-  LimitedDashes: 0
-  SuccessiveDashAmount: 1
+  DashCooldown: 0.4
+  LimitedDashes: 1
+  SuccessiveDashAmount: 2
   SuccessiveDashesLeft: 1
-  SuccessiveDashResetMethod: 0
+  SuccessiveDashResetMethod: 1
   SuccessiveDashResetDuration: 2
   InvincibleWhileDashing: 1
 --- !u!114 &11421110
@@ -901,6 +902,41 @@ MonoBehaviour:
   ClampedDamage: 1
   FallDamageTypes: []
   DamageVelocityThreshold: 5
+--- !u!114 &8372226873538739712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d317597e2b47bcb4e80316f1b372d79b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 04000000
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  RollDuration: 0.3
+  RollSpeed: 2.5
+  BlockHorizontalInput: 1
+  PreventDamageCollisionsDuringRoll: 1
+  Aim:
+    AimControl: 2
+    RotationMode: 0
+    MinimumAngle: -180
+    MaximumAngle: 180
+    CurrentAngle: 0
+  MinimumInputThreshold: 0.1
+  FlipCharacterIfNeeded: 1
+  RollCooldown: 0.5
+  LimitedRolls: 0
+  SuccessiveRollsAmount: 1
+  SuccessiveRollsLeft: 1
+  SuccessiveRollsResetDuration: 2
 --- !u!114 &555535829346107813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,8 +954,9 @@ MonoBehaviour:
   InitialStamina: 30
   MaximumStamina: 30
   NeedNoStamina: 0
-  JumpCost: 5
-  DashCost: 5
+  JumpCost: 4
+  DashCost: 0
+  RollCost: 6
   RunConstantlyCost: 3
   ClimbConstanlyCost: 3
   RecoverSpeed: 5
